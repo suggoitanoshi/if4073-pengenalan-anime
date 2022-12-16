@@ -146,7 +146,7 @@ Pendeteksian segmen menggunakan kesamaan salah satunya dapat dilakukan dengan pe
 Selain menggunakan pengambangan, segmen dapat dibangun menggunakan algoritma \textit{K-Means}. Algoritma \textit{K-Means} merupakan algoritma yang dapat mengelompokkan data menjadi $k$ kelompok berdasarkan ukuran kemiripan yang diberikan. Penggunaan algoritma \textit{K-Means} adalah untuk mensegmentasi citra menjadi beberapa segmen warna.
 
 \section{Studi Terkait}
-Dalam \cite{takayama2012face}, dideskripsikan cara untuk mendeteksi wajah karakter kartun menggunakan teknik-teknik pengolahan citra. Dalam studi tersebut, digunakan nilai \textit{hue} tertentu untuk mendeteksi wajah berdasarkan warna kulit. Nilai rentang \textit{hue} yang digunakan adalah $[0, 40]$ dalam derajat. Selain itu, faktor \textit{hue} juga digunakan dalam untuk mendeteksi warna kulit. Nilai rentang yang digunakan adalah $[0.75, 1]$.
+Dalam \cite{takayama2012face}, dideskripsikan cara untuk mendeteksi wajah karakter kartun menggunakan teknik-teknik pengolahan citra. Dalam studi tersebut, digunakan nilai \textit{hue} tertentu untuk mendeteksi wajah berdasarkan warna kulit. Nilai rentang \textit{hue} yang digunakan adalah $[0, 40]$ dalam derajat. Selain itu, faktor \textit{value} juga digunakan dalam untuk mendeteksi warna kulit. Nilai rentang yang digunakan adalah $[0.75, 1]$.
 
 \section{Implementasi Solusi}
 Solusi dibuat menggunakan bahasa pemrograman \texttt{Python} versi 3.9. Pustaka \texttt{OpenCV} versi 4.6 serta \texttt{NumPy} digunakan untuk membantu melakukan berbagai operasi pada citra secara efisien. Alur umum solusi dapat dilihat pada gambar~\ref{sol}.
@@ -229,18 +229,18 @@ Citra lain digunakan untuk menguji kebenaran solusi yang diberikan. Citra yang a
 
 \begin{figure}[h]
   \begin{center}
-    \includegraphics[width=5cm]{img/bocchi.jpg}
-    \includegraphics[width=5cm]{img/venti.jpg}
-    \includegraphics[width=5cm]{img/marin.jpg}
+    \includegraphics[width=6cm]{img/bocchi.jpg}
+    \includegraphics[width=6cm]{img/venti.jpg}
+    \includegraphics[width=6cm]{img/marin.jpg}
   \end{center}
   \caption{Citra uji tambahan}\label{extratests}
 \end{figure}
 
 \begin{figure}[h]
   \begin{center}
-    \includegraphics[width=5cm]{img/result_bocchi.jpg}
-    \includegraphics[width=5cm]{img/result_venti.jpg}
-    \includegraphics[width=5cm]{img/result_marin.jpg}
+    \includegraphics[width=6cm]{img/result_bocchi.jpg}
+    \includegraphics[width=6cm]{img/result_venti.jpg}
+    \includegraphics[width=6cm]{img/result_marin.jpg}
   \end{center}
   \caption{Hasil pengujian pada citra uji tambahan}\label{extrares}
 \end{figure}
@@ -253,8 +253,10 @@ Hasil dari pengujian menunjukkan masih banyak kesalahan pendeteksian wajah. Dari
 Penggunaan kakas yang lebih canggih seperti \textit{Haar Cascade Classifier} dapat mempercepat proses pencarian \textit{landmark} wajah maupun pendeteksian wajah itu sendiri. Menggunakan \textit{cascading classifier}, pencarian pola dapat dilakukan dengan lebih efektif dibandingkan \textit{brute-force}.
 
 \section*{Pranala Terkait}
-Video di YouTube: \url{https://www.youtube.com/watch?v=dQw4w9WgXcQ}
-Repository GitHub: \url{https://github.com/suggoitanoshi/if4073-pengenalan-anime}
+ {
+  \setlength{\parindent}{0pt}
+  Repository GitHub: \url{https://github.com/suggoitanoshi/if4073-pengenalan-anime}
+ }
 
 \section*{Ucapan Terima Kasih}
 Syukur kepada Tuhan Yang Maha Esa atas karunia-Nya sehingga penulis dapat menyelesaikan makalah ini tanpa kesulitan maupun tantangan yang terlalu berat. Terima kasih yang teramat banyak kepada Bapak Rinaldi selaku dosen pengampu mata kuliah IF4073 Interpretasi dan Pengolahan Citra, sehingga penulis dapat belajar lebih lanjut mengenai citra dan pengolahannya. Ucapan terima kasih juga diberikan kepada keluarga dan teman-teman yang senantiasa membantu dan memberikan semangat kepada penulis sehingga penulis tidak menyerah dalam menyelesaikan perkuliahan di semester ini.
@@ -270,7 +272,7 @@ Dengan ini saya menyatakan bahwa makalah yang saya tulis ini adalah tulisan saya
   {
     \raggedleft
 
-    Bandung, 15 Desember 2022
+    Bandung, 16 Desember 2022
 
     \includegraphics[width=4cm, right]{img/tandatangan.png}
     Fransiskus Febryan Suryawan\\
