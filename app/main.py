@@ -15,8 +15,8 @@ def detect_face_with_jaws(image: np.ndarray) -> np.ndarray:
   mat_5_5 = np.ones((5,5), np.uint8)
 
   image_hsv = cv.cvtColor(image, cv.COLOR_BGR2HSV)
-  skin_threshold = cv.inRange(image_hsv, (0, 0, 75*255//100), (40, 255, 255))
-  white_threshold = cv.inRange(image_hsv, (0,0, 75*255/100), (0,0,255))
+  skin_threshold = cv.inRange(image_hsv, (0, 0, 75*255//100), (30, 255, 255))
+  white_threshold = cv.inRange(image_hsv, (0,0, 75*255/100), (0,255,255))
   skin_threshold = cv.bitwise_xor(skin_threshold, white_threshold) # remove white from skin
   skin_threshold = cv.morphologyEx(skin_threshold, cv.MORPH_OPEN, mat_3_3) # erode then dilate
   skin_masked = cv.bitwise_and(image, image, mask=skin_threshold) # mask image using skin color
@@ -46,7 +46,7 @@ def detect_face_with_jaws(image: np.ndarray) -> np.ndarray:
           rho_i, theta_i = l.tolist()
           rho_j, theta_j = ll.tolist()
           # check if lines intersect at a certain angle
-          if np.deg2rad(60) < np.abs(theta_i - theta_j) < np.deg2rad(100):
+          if np.deg2rad(50) < np.abs(theta_i - theta_j) < np.deg2rad(100):
             # if yes, solve for intersection point
             A = np.array([
               [np.cos(theta_i), np.sin(theta_i)],
@@ -129,6 +129,17 @@ def main(argv: List[str]):
   
   image = cv.imread(path.join(getcwd(), argv[1]))
   face_landmarks = detect_landmarks(image)
+  for f in face_landmarks:
+    x, y, w, h = cv.boundingRect(f[0][0])
+    cv.rectangle(image, (x, y), (x+w, y+h), (0,255,0), 2)
+    for eyes in f[1]:
+      for eye in eyes:
+        cv.circle(image, (int(eye[0]), int(eye[1])), 3, (0,0,255), -1) # draw eyes
+    cv.circle(image, (int(f[0][1][0]), int(f[0][1][1])), 3, (0,0,255), -1) # draw jaw
+  
+  cv.imshow('Result', image)
+  cv.waitKey(0)
+  cv.destroyAllWindows()
 
 if __name__ == "__main__":
   main(sys.argv)
