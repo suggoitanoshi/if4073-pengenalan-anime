@@ -81,7 +81,8 @@ def detect_eyes(image: np.ndarray, contour: List, jaw: List[int]) -> np.ndarray:
   min_idx = np.argmin(percentage)
   res = center[label.flatten()]
   res[~(label == min_idx).flatten()] = (0,0,0)
-  res = res.reshape(image[y:y+h, x:x+w].shape)
+  res[(label == min_idx).flatten()] = (255,255,255)
+  res = res.reshape((h,w,3))
   gray = cv.cvtColor(res, cv.COLOR_BGR2GRAY)
   _, binary = cv.threshold(gray, 1, 255, cv.THRESH_BINARY)
   binary = cv.morphologyEx(binary, cv.MORPH_OPEN, kern_3_3)
@@ -106,21 +107,35 @@ def detect_eyes(image: np.ndarray, contour: List, jaw: List[int]) -> np.ndarray:
     jaw_to_e1 = np.linalg.norm(jaw_corrected - center1)
     for e2 in potential_eyes[i+1:]:
       sim = cv.matchShapes(e1, e2, cv.CONTOURS_MATCH_I1, 0.0)
-      if sim > 0.4:
+      if sim > 0.325:
         continue
       x2, y2, w2, h2 = cv.boundingRect(e2)
+
+      eye1 = res[y1:y1+h1, x1:x1+w1]
+      eye2 = res[y2:y2+h2, x2:x2+w2]
+
+      eye1 = cv.cvtColor(eye1, cv.COLOR_BGR2HSV)
+      eye2 = cv.cvtColor(eye2, cv.COLOR_BGR2HSV)
+
+      eye1 = eye1.reshape((-1, 3))
+      eye2 = eye2.reshape((-1, 3))
+      av1 = np.average(eye1, axis=0)
+      av2 = np.average(eye2, axis=0)
+      diff = np.abs(av1 - av2)
+      if (diff > (45, 65, 50)).all():
+        continue
       center2 = np.array([x2+w2/2, y2+h2/2])
       jaw_to_e2 = np.linalg.norm(jaw_corrected - center2)
-      if np.abs(jaw_to_e1 - jaw_to_e2) > 50:
+      if np.abs(jaw_to_e1 - jaw_to_e2) > 40:
         # distance "between eyes to jaw" too big
         continue
-      eyes.append([center1, center2])
+      eyes.append([offset+center1, offset+center2])
+      break
   return eyes
 
 def detect_landmarks(image: np.ndarray):
   faces_with_jaws = detect_face_with_jaws(image)
   zipped = list(zip(faces_with_jaws, [detect_eyes(image, f[0], f[1]) for f in faces_with_jaws]))
-  zipped = [x for x in zipped if len(x[1]) == 1]
   return list(zipped)
 
 def main(argv: List[str]):
