@@ -67,11 +67,11 @@ def detect_face_with_jaws(image: np.ndarray) -> np.ndarray:
   return faces_with_jaws
 
 def detect_eyes(image: np.ndarray, contour: List, jaw: List[int]) -> np.ndarray:
-  x, y, w, h = cv.boundingRect(contour)
-  jaw_corrected = [jaw[0]-x, jaw[1]-y]
+  x0, y0, w, h = cv.boundingRect(contour)
+  jaw_corrected = [jaw[0]-x0, jaw[1]-y0]
   criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 10, 1.0)
   K = 3
-  Z = np.float32(image[y:y+h,x:x+w].reshape((-1, 3)))
+  Z = np.float32(image[y0:y0+h,x0:x0+w].reshape((-1, 3)))
   _, label, center = cv.kmeans(Z, K, None, criteria, 10, cv.KMEANS_RANDOM_CENTERS)
 
   kern_3_3 = np.ones((3,3))
@@ -90,7 +90,7 @@ def detect_eyes(image: np.ndarray, contour: List, jaw: List[int]) -> np.ndarray:
   potential_eyes = []
   for c in contours:
     # loop through all contours, find potential eye contour
-    x, y, w, h = cv.boundingRect(c)
+    _, _, w, h = cv.boundingRect(c)
     if (w < 10) or h < 10 or not\
       ((1 < w/h < 2.5) or\
       (1.5 < h/w < 2)):
@@ -98,6 +98,7 @@ def detect_eyes(image: np.ndarray, contour: List, jaw: List[int]) -> np.ndarray:
     potential_eyes.append(c)
 
   eyes = []
+  offset = [x0, y0]
 
   for i,e1 in enumerate(potential_eyes[:-1]):
     x1, y1, w1, h1 = cv.boundingRect(e1)
