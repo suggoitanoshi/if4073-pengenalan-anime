@@ -1,0 +1,17 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\begin{document}
+\begin{tikzpicture}[
+    arrow/.style ={thin, ->, -latex}
+  ]
+  \draw[thin] (0, -4em) -- (0, -2.5em);
+  \draw[thin, densely dotted] (0, -2.5em) -- (0, 0);
+  \draw (0, 0) circle (5em and 2.5em);
+  \draw[arrow] (0, 0) -- (0, 4em) node[anchor=south] {Value};
+  \draw[arrow] (0, 0) -- (6em, 0) node[anchor=west] {Saturation};
+  \draw[thin, ->] (-1.5em, -1.3em) to [bend right=12] (1.5em, -1.3em) node [anchor=south east]{Hue};
+\end{tikzpicture}
+\end{document}

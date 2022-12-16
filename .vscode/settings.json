@@ -1,0 +1,46 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+
+  "latex-workshop.latex.watch.files.ignore": [
+    "**/*.bbx",
+    "**/*.bbl",
+    "**/*.cbx",
+    "**/*.cfg",
+    "**/*.clo",
+    "**/*.cnf",
+    "**/*.def",
+    "**/*.dfu",
+    "**/*.enc",
+    "**/*.fd",
+    "**/*.fmt",
+    "**/*.lbx",
+    "**/*.map",
+    "**/*.mkii",
+    "**/*.pfb",
+    "**/*.tfm",
+    "**/*.vf",
+    "**/*.code.tex",
+    "**/*.sty",
+    "app/*"
+  ],
+
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/report/output",
+  "latex-workshop.latex.search.rootFiles.include": [
+    "report/report.tex",
+  ],
+  "python.defaultInterpreterPath": "~/.virtualenvs/app-9iuHxbG7/Scripts/python.exe"
+}
