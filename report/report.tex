@@ -99,7 +99,7 @@ Disebutkan dalam \cite{munir2022edge}, tepi merupakan salah satu fitur yang ada 
 
 Pendeteksian tepi dapat dilakukan dengan menggunakan beberapa operator. Operator yang paling sederhana adalah operator gradien, yakni operator yang menghitung kemiringan dari fungsi. Variasi dari operator ini adalah operator gradien dengan selisih-terpusat (\textit{center-difference}).
 
-Operator lain yang mungkin digunakan dalam pendeteksian citra adalah operator Laplace atau turunan kedua. Operator laplace menggunakan turunan kedua untuk mencari perubahan tanda gradien, yakni dengan mencari persilangan nol (\textit{zero-crossing}). Operator Laplace didapatkan dengan mengambil gradien orde kedua dari $f(x,y)$, atau menurunkan $f(x,y)$ secara diskrit sebanyak dua kali. Operator Laplacian dapat dilakukan dengan melakukan konvolusi menggunakan kernel pada persamaan~\ref{laplacian}
+Operator lain yang mungkin digunakan dalam pendeteksian citra adalah operator Laplace atau turunan kedua. Operator laplace menggunakan turunan kedua untuk mencari perubahan tanda gradien, yakni dengan mencari persilangan nol (\textit{zero-crossing}). Operator Laplace didapatkan dengan mengambil gradien orde kedua dari $f(x,y)$, atau menurunkan $f(x,y)$ secara diskrit sebanyak dua kali. Operator Laplacian dapat dilakukan dengan melakukan konvolusi menggunakan kernel pada persamaan~\ref{laplacian}.
 \begin{equation}
   D^2_{xy} = \left [\begin{matrix}
       0 & 1  & 0 \\
@@ -109,7 +109,7 @@ Operator lain yang mungkin digunakan dalam pendeteksian citra adalah operator La
   \label{laplacian}
 \end{equation}
 
-Derau dapat dideteksi sebagai tepi akibat perubahan nilai keabuan yang cepat. Oleh karena itu, perlu ditapis terlebih dahulu. Salah satu penapis yang mungkin digunakan adalah penapis Gaussian, yang melembutkan citra. Dalam kasus operasi Laplace, penapis Gaussian dapat digabungkan dengan operasinya. Oleh karena itu, perhitungan tepi menggunakan operasi Laplace dapat dilakukan lebih efisien. Operator Laplace yang dilengkapi dengan Gaussian umumnya disebut sebagai operator tersendiri, yakni Laplacian of Gaussian (LoG). Kernel untuk LoG didapatkan dengan menggunakan persamaan~\ref{log}
+Derau dapat dideteksi sebagai tepi akibat perubahan nilai keabuan yang cepat. Oleh karena itu, perlu ditapis terlebih dahulu. Salah satu penapis yang mungkin digunakan adalah penapis Gaussian, yang melembutkan citra. Dalam kasus operasi Laplace, penapis Gaussian dapat digabungkan dengan operasinya. Oleh karena itu, perhitungan tepi menggunakan operasi Laplace dapat dilakukan lebih efisien. Operator Laplace yang dilengkapi dengan Gaussian umumnya disebut sebagai operator tersendiri, yakni Laplacian of Gaussian (LoG). Kernel untuk LoG didapatkan dengan menggunakan persamaan~\ref{log}.
 \begin{equation}
   \mathrm{LoG}(u, v) = \frac{1}{\pi \sigma^4}
   \left(\frac{u^2 + v^2}{2\sigma^2} - 1\right)
